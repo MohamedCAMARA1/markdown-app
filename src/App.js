@@ -11,6 +11,20 @@ class App extends Component {
 
   }
 
+  componentDidMount () {
+    const text = localStorage.getItem('text')  
+    
+    text ? this.setState({ text }) : this.setState({ sampleText })
+    
+
+  }
+
+  componentDidUpdate () { //sauvegarde à chaque fois les changements
+    const { text} = this.state
+    localStorage.setItem('text', text)
+  }
+
+
   handleChange = (event) => {
     const text = event.target.value
     this.setState({text})
@@ -23,7 +37,7 @@ class App extends Component {
 
   }
 
-
+  
   render() {
   return (
   
@@ -45,7 +59,7 @@ class App extends Component {
             {//ici on utilkise dangerouslySetInnerHTML pour sécuriser le code sachant que ça ne sera pas le 
             // le programmeur qui saisira ce que contiendra la variable
             }
-            
+
             <div dangerouslySetInnerHTML = {this.renderText(this.state.text)} />        
           </div> 
 
